@@ -86,11 +86,7 @@
                                  <label>Google Link</label>
                                  <input type="text" name="google"  class="form-control" placeholder="Enter domain" value="{{ $data->google }}" required>
                               </div>
-                              <div class="form-group">
-                                 <label>Company Logo</label>
-                                 <input type="file" name="logo"  class="form-control" placeholder="Enter domain">
-                              </div>
-                              <img style="width:50%" src="{{ url('images\\'.$data->logo.'') }}">
+                              
                               <div class="reset-button">
                                 <input type="reset" class="btn btn-warning" value="Reset">
                                  <input type="submit" class="btn btn-add" value="Save">

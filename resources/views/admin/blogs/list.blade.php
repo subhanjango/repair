@@ -69,7 +69,7 @@
 <td>{{ $data->blog_name }}</td>
 <td>{!! substr($data->blog_content, 0, 100) !!}</td>
 <td>
-<img style="width:50pxa" src="{{ url('images\\'.$data->blog_image.'') }}">
+<img style="width:50px" src="{{ url('images\\'.$data->blog_image.'') }}">
 </td>
 <td>
 <a href="{{url('admin/'.strtolower($Title).'/edit/'.$data->id.'')}}">

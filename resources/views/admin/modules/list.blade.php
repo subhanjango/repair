@@ -56,9 +56,12 @@
 <table id="dataTable" class="table table-bordered table-striped table-hover">
 <thead>
 <tr class="info">
-<th>Blog Name</th>
-<th>Content</th>
-<th>Image</th>
+<th>Service Name</th>
+<th>Title</th>
+<th>Description</th>
+<th>Sort No.</th>
+<th>Select Type</th>
+<th>Options</th>
 <th>Action</th>
 
 </tr>
@@ -66,15 +69,16 @@
 <tbody>
 @foreach($Data as $data)
 <tr>
-<td>{{ $data->blog_name }}</td>
-<td>{!! substr($data->blog_content, 0, 100) !!}</td>
+<td>{{ $data->service->service_name }}</td>
+<td>{{ $data->module_title }}</td>
+<td>{!! substr($data->module_description, 0, 100) !!}</td>
+<td>{{ $data->sort_id }}</td>
+<td>{{ $data->select_type }}</td>
+<td class="text-center"><i onClick="moduleOptions({{$data->id}})" class="fa fa-info-circle" aria-hidden="true"></i></td>
 <td>
-<img style="width:50pxa" src="{{ url('images\\'.$data->blog_image.'') }}">
-</td>
-<td>
-<a href="{{url('admin/'.strtolower($Title).'/edit/'.$data->id.'')}}">
+{{--  <a href="{{url('admin/'.strtolower($Title).'/edit/'.$data->id.'')}}">
 <button type="button" class="btn btn-primary btn-outline w-md m-b-5">Edit</button>
-</a>
+</a>  --}}
 <a href="{{url('admin/'.strtolower($Title).'/delete/'.$data->id.'')}}">
 <button type="button" class="btn btn-danger btn-outline w-md m-b-5">Delete</button>
 </a>

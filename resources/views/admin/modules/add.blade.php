@@ -54,33 +54,49 @@
 @endif
 <form class="col-sm-12" method="{{$Method}}" action="{{$Action}}" enctype="multipart/form-data">
 {{csrf_field()}}
+<input type="hidden" name="do_post" value="1">
 <div class="form-group">
 <label>Select Your Service</label>
 <select name="service_id" class="form-control">
 <option value="">Select Service</option>
+@foreach($Services as $Services)
+<option value="{{$Services->id}}">{!! $Services->service_name !!}</option>
+@endforeach
 </select>
 </div>
 <div class="form-group">
 <label>Module Title</label>
-<input type="text" name="module_title" class="form-control">
+<input type="text" name="module_title" class="form-control" required>
 </div>
 <div class="form-group">
 <label>Module Description</label>
-<input type="text" name="module_description" class="form-control">
+<input type="text" name="module_description" class="form-control" required>
+</div>
+<div class="form-group">
+<label>Sort Number</label>
+<input type="number" name="sort_id" min=1  class="form-control" required>
+</div>
+<div class="form-group">
+<label>Select Type</label>
+<select name="select_type" class="form-control" required>
+<option value="single">Single</option>
+<option value="multiple">Multiple</option>
+</select>
 </div>
 <div class="form-group thumbnail btn-primary">
 <h3 class="text-center">Module Options</h3>
 <label>Title</label>
-<input type="text" name="title[]" class="form-control">
+<input type="text" name="title[]" class="form-control" required>
 <label>Image</label>
-<input type="file" name="image[]" class="form-control">
+<input type="file" name="image[]" class="form-control" required>
 <label>Cost</label>
-<input type="number" name="cost[]" class="form-control">
+<input type="number" name="cost[]" class="form-control" required>
+<input type="hidden" value="0" id="count_options">
 <br>
-<a id="add_sub_options"><span class="btn btn-info">Add Sub Options</span></a>
-<span id="sub_options"></span>
+<span onClick="add_sub_options(0)" class="btn btn-info">Add Sub Options</span>
+<span id="sub_options_0"></span>
 </div>
-
+<span id="options"></span>
 <div class="reset-button">
 <a id="add_options"><span class="btn btn-success">Add Options</span></a>
 <input type="submit" class="btn btn-add" value="Save">

@@ -3,105 +3,174 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use App\AdminModels\Module;
+use App\AdminModels\Service;
+use App\AdminModels\ModuleOptions;
 
 class ModuleController extends Controller
 {
-    private $__directory;
-    private $__module;
-    private $__pkey;
-    private $__model;
+private $__directory;
+private $__module;
+private $__pkey;
+private $__model;
 
-    public function __construct()
-    {
-        $this->__Module="Modules";
-        $this->__Model="Module";
-        $this->__Directory="Admin/modules";
-        $this->__pKey="id";
-    }
+public function __construct()
+{
+$this->__Module="Modules";
+$this->__Model="Module";
+$this->__Directory="Admin/modules";
+$this->__pKey="id";
+}
 
-    public function add(Request $request)
-    {
+public function add(Request $request)
+{
 
-        if ($request->do_post) {
-            array_map('trim', $request->all());
-            array_map('strip_tags', $request->all());
 
-            $this->validate(request(), [
-            'service_name' => 'required|string',
-            'service_about' => 'required|min:100|max:10000',
-            'service_image'    => 'required|image|mimes:jpeg,bmp,png'
-            ]);
+if ($request->do_post) {
 
-            $service=Service::create(request()->except('_token'));
+$this->validate(request(), [
+'service_id' => 'required|integer',
+'module_title' => 'required|string',
+'module_description' => 'required|min:6|max:200',
+'select_type' => 'required',
+'sort_id' => 'required|integer|min:1',
+'title.*' => 'required',
+'image.*' => 'required|image|mimes:jpeg,bmp,png',
+'cost.*' => 'required'
+]);
 
-            $imageName = time().'.'.request()->service_image->getClientOriginalExtension();
-            request()->service_image->move(public_path('images'), $imageName);
+$createModule=['service_id'=>$request->service_id,
+'module_title'=>$request->module_title,
+'module_description'=>$request->module_description,
+'sort_id'=>$request->sort_id,
+'select_type'=>$request->select_type];
 
-            Service::where($this->__pKey, $service->id)->update(['service_image'=>$imageName]);
-            $request->session()->flash('success', 'Data Inserted');
-            return back();
-        }
 
-        $__dataAssign['Module']=$this->__Directory;
-        $__dataAssign['Title']=$this->__Module;
-        $__dataAssign['Method']="Post";
-        $__dataAssign['Action']=\Request::fullUrl();
-        return view($this->__Directory.'/'.__FUNCTION__, $__dataAssign);
-    }
+$module=Module::create($createModule);
 
-    public function list()
-    {
-        $__dataAssign['Module']=$this->__Directory;
-        $__dataAssign['Title']=$this->__Module;
-        $__dataAssign['Data']=Service::get();
-        return view($this->__Directory.'/'.__FUNCTION__, $__dataAssign);
-    }
 
-    public function delete($id, Request $request)
-    {
-        Service::destroy($id);
-        $request->session()->flash('success', 'Data Deleted');
-        return back();
-    }
+foreach ($request->title as $key => $value) {
+$imageName = $key.''.time().'.'.request()->image[$key]->getClientOriginalExtension();
+request()->image[$key]->move(public_path('images'), $imageName);
 
-    public function edit($id, Request $request)
-    {
+$options=['title'=>$value,
+'image'=>$imageName,
+'cost'=>$request->cost[$key],
+'module_id'=>$module->id];
 
-        if ($request->do_post) {
-            $current=$request->current;
-            $request->offsetUnset('do_post');
-            $request->offsetUnset('current');
-            $__dataAssign['Data']=Service::find($id);
+$option=ModuleOptions::create($options);
+if (Input::get('sub_title_'.$key)) {
+foreach (Input::get('sub_title_'.$key) as $keys => $values) {
+$imageName = $keys.''.rand(1,time()).'.'.Input::file('sub_image_'.$key)[$keys]->getClientOriginalExtension();
+Input::file('sub_image_'.$key)[$keys]->move(public_path('images'), $imageName);
 
-            array_map('trim', $request->all());
-            array_map('strip_tags', $request->all());
+$options=['title'=>$values,
+'image'=>$imageName,
+'cost'=>Input::get('sub_cost_'.$key)[$keys],
+'parent_id'=>$option->id,
+'module_id'=>$module->id];
 
-            $this->validate(request(), [
-            'service_name' => 'required|string',
-            'service_about' => 'required|min:100|max:10000'
-            ]);
+ModuleOptions::create($options);
+}
+}
+}
+$request->session()->flash('success', 'Data Inserted');
+return back();
+}
 
-            $service=Service::where($this->__pKey, $current)->update(request()->except('_token'));
-            if (!empty($_FILES['service_image']['name'])) {
-                    $imageName = time().'.'.request()->service_image->getClientOriginalExtension();
-                    request()->service_image->move(public_path('images'), $imageName);
+$__dataAssign['Module']=$this->__Directory;
+$__dataAssign['Title']=$this->__Module;
+$__dataAssign['Method']="Post";
+$__dataAssign['Action']=\Request::fullUrl();
+$__dataAssign['Services']=Service::get();
 
-                    Service::where($this->__pKey, $current)->update(['service_image'=>$imageName]);
-            } else {
-                    Service::where($this->__pKey, $current)->update(['service_image'=>$__dataAssign['Data']->service_image]);
-            }
+return view($this->__Directory.'/'.__FUNCTION__, $__dataAssign);
+}
 
-            $request->session()->flash('success', 'Data Updated');
-            return back();
-        }
+public function list()
+{
+$__dataAssign['Module']=$this->__Directory;
+$__dataAssign['Title']=$this->__Module;
+$__dataAssign['Data']=Module::with('service')->get();
 
-        $__dataAssign['Module']=$this->__Directory;
-        $__dataAssign['Title']=$this->__Module;
-        $__dataAssign['Method']="Post";
-        $__dataAssign['Action']=\Request::fullUrl();
-        $__dataAssign['data']=Service::find($id);
-        return view($this->__Directory.'/'.__FUNCTION__, $__dataAssign);
-    }
+return view($this->__Directory.'/'.__FUNCTION__, $__dataAssign);
+}
+
+public function delete($id, Request $request)
+{
+Module::destroy($id);
+ModuleOptions::where('module_id',$id)->delete();
+
+$request->session()->flash('success', 'Data Deleted');
+return back();
+}
+public function options(Request $request){
+    return Module::find($request->id)->with('option')->get();
+}
+public function edit($id, Request $request)
+{
+
+if ($request->do_post) {
+
+$this->validate(request(), [
+'service_id' => 'required|integer',
+'module_title' => 'required|string',
+'module_description' => 'required|min:6|max:200',
+'select_type' => 'required',
+'sort_id' => 'required|integer|min:1',
+'title.*' => 'required',
+'image.*' => 'required|image|mimes:jpeg,bmp,png',
+'cost.*' => 'required'
+]);
+
+$createModule=['service_id'=>$request->service_id,
+'module_title'=>$request->module_title,
+'module_description'=>$request->module_description,
+'sort_id'=>$request->sort_id,
+'select_type'=>$request->select_type];
+
+
+$module=Module::create($createModule);
+
+
+foreach ($request->title as $key => $value) {
+$imageName = $key.''.time().'.'.request()->image[$key]->getClientOriginalExtension();
+request()->image[$key]->move(public_path('images'), $imageName);
+
+$options=['title'=>$value,
+'image'=>$imageName,
+'cost'=>$request->cost[$key],
+'module_id'=>$module->id];
+
+$option=ModuleOptions::create($options);
+if (Input::get('sub_title_'.$key)) {
+foreach (Input::get('sub_title_'.$key) as $keys => $values) {
+$imageName = $keys.''.rand(1,time()).'.'.Input::file('sub_image_'.$key)[$keys]->getClientOriginalExtension();
+Input::file('sub_image_'.$key)[$keys]->move(public_path('images'), $imageName);
+
+$options=['title'=>$values,
+'image'=>$imageName,
+'cost'=>Input::get('sub_cost_'.$key)[$keys],
+'parent_id'=>$option->id,
+'module_id'=>$module->id];
+
+ModuleOptions::create($options);
+}
+}
+}
+$request->session()->flash('success', 'Data Inserted');
+return back();
+}
+
+$__dataAssign['Module']=$this->__Directory;
+$__dataAssign['Title']=$this->__Module;
+$__dataAssign['Method']="Post";
+$__dataAssign['Action']=\Request::fullUrl();
+$__dataAssign['Services']=Service::get();
+$__dataAssign['Data']=module::find($id)->with('option')->get();
+
+return view($this->__Directory.'/'.__FUNCTION__, $__dataAssign);
+}
 }

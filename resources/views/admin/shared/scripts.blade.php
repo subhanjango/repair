@@ -76,8 +76,7 @@ $('#dataTable').DataTable();
 
       function detailsPricing(id){
           $('.modal-body').html('');
-          $('.modal-body').html('');
-          $.post( "{{url('admin/pricingDetails')}}", { id: id, _token: "{!! csrf_token() !!}" })
+          $.post("{{url('admin/pricingDetails')}}", { id: id, _token: "{!! csrf_token() !!}" })
             .done(function( data ) {
             $('.modal-title').text('Package Details');
             console.log('code',data[0].codes);
@@ -94,6 +93,54 @@ $('#dataTable').DataTable();
             $('#myModal').modal();
         });
       }
+      function moduleOptions(id){
+          $('.modal-body').html('');
+          $.post("{{url('admin/moduleOptions')}}", { id: id, _token: "{!! csrf_token() !!}" })
+            .done(function( data ) {
+            $('.modal-title').text('Module Options');
+            console.log('code',data[0].option[0].parent_id);
+            $('.modal-body').append('<h1>Module Options</h1>');
+            $.each(data[0].option , function (index, value) {
+                if($.isEmptyObject(data[0].option[index].parent_id)){
+                $('.modal-body').append('<h3>'+value.title+'</h3>');
+                }else{
+                 $('.modal-body').append('<li>'+value.title+'</li>');  
+                }
+            });
+            $('#myModal').modal();
+        });
+      }
+      
+      $('#add_options').click(function(count=0){
+         this_count=$('input#count_options').length;
+          
+        $('#options').append('<div id="'+this_count+'" class="form-group thumbnail btn-primary"><i class="fa fa-times pull-right" href="#" onClick="closeOptions('+this_count+')" aria-hidden="true"></i><h3 class="text-center">Module Options</h3><label>Title</label><input type="text" name="title[]" class="form-control" required><label>Image</label><input type="file" name="image[]" class="form-control" required><label>Cost</label><input type="number" name="cost[]" class="form-control" required><input type="hidden" value="'+this_count+'" id="count_options"><br><a onclick="add_sub_options('+this_count+')"><span class="btn btn-info">Add Sub Options</span></a><span id="sub_options_'+this_count+'"></span></div>');
+       });
+
+       function add_sub_options(id){
+           this_count=$('#sub_options_'+id+' div').length == 0 ? 869000 :$('#sub_options_'+id+' div').length;
+
+        $('#sub_options_'+id).append('<br><div id="'+this_count+id+'" class="form-group thumbnail btn-danger"><i class="fa fa-times pull-right" href="#" onClick="closesubOptions('+id+','+this_count+id+')" aria-hidden="true"></i><h3 class="text-center">Sub Module Options</h3><label>Title</label><input type="text" name="sub_title_'+id+'[]" class="form-control" required><label>Image</label><input type="file" name="sub_image_'+id+'[]" class="form-control" required><label>Cost</label><input type="number" name="sub_cost_'+id+'[]" class="form-control" required></div>');
+
+       }
+
+       function closesubOptions(id,subid){
+           $('#sub_options_'+id+' div#'+subid).remove();
+       }
+       function closeOptions(id){
+           console.log('here',id);
+           $('#options div#'+id).remove();
+       }
+       function closeOptionsEdit(id){
+           if(id != 0){
+
+           console.log('here',id);
+           $('div#'+id).remove();
+           }else{
+               alert('Can not be deleted.');
+           }
+       }
+
   </script>
       <!-- End Theme label Script
          =====================================================================-->

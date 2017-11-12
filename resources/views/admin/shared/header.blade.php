@@ -2,10 +2,10 @@
             <a href="index-2.html" class="logo">
                <!-- Logo -->
                <span class="logo-mini">
-               <img src="{{asset('assets/dist/img/mini-logo.png')}}" alt="">
+              <h6>{{\Session::get('Company_Name')}}</h6>
                </span>
                <span class="logo-lg">
-               <img src="{{asset('assets/dist/img/logo.png')}}" alt="">
+               <b></b><h3 style="color:#2A3F54">{{\Session::get('Company_Name')}}</h3></b>
                </span>
             </a>
             <!-- Header Navbar -->
@@ -15,18 +15,10 @@
                   <span class="sr-only">Toggle navigation</span>
                   <span class="pe-7s-angle-left-circle"></span>
                </a>
-               <!-- searchbar-->
-               <a href="#search"><span class="pe-7s-search"></span></a>
-               <div id="search">
-                 <button type="button" class="close">×</button>
-                 <form>
-                   <input type="search" value="" placeholder="Search.." />
-                   <button type="submit" class="btn btn-add">Search...</button>
-                </form>
-             </div>
+            
              <div class="navbar-custom-menu">
                   <ul class="nav navbar-nav">
-                     <!-- Orders -->
+                     {{--  <!-- Orders -->
                      <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle admin-notification" data-toggle="dropdown"> 
                         <i class="pe-7s-cart"></i>
@@ -243,7 +235,7 @@
                               </ul>
                            </li>
                         </ul>
-                     </li>
+                     </li>  --}}
                      <!-- Help -->
                      <li class="dropdown dropdown-help hidden-xs">
                         <a href="{{URL('admin/gsetting')}}" class="dropdown-toggle" >

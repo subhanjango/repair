@@ -53,6 +53,7 @@ Route::any('modules/add', 'Admin\\ModuleController@add');
 Route::get('modules/list', 'Admin\\ModuleController@list');
 Route::get('modules/delete/{id}', 'Admin\\ModuleController@delete');
 Route::any('modules/edit/{id}', 'Admin\\ModuleController@edit');
+Route::any('moduleOptions', 'Admin\\ModuleController@options');
 });
 
 });

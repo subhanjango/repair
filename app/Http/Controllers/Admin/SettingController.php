@@ -52,7 +52,7 @@ class SettingController extends Controller
          Setting::where($this->__pKey, 1)->update(request()->except('_token'));
      
         if (!empty($_FILES['logo']['name'])) {
-            $imageName = time().'.'.request()->logo->getClientOriginalExtension();
+            $imageName = 'logo.'.request()->logo->getClientOriginalExtension();
 
             request()->logo->move(public_path('images'), $imageName);
 
