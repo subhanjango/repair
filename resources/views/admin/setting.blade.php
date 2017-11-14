@@ -60,7 +60,7 @@
                               </div>
                               <div class="form-group">
                                  <label>Company Address</label>
-                                 <textarea class="form-control" name="company_address"  rows="3"  required>{{ $data->company_address }}</textarea>
+                                 <input type="text" name="company_address" value="{{ $data->company_address }}"  class="form-control">
                               </div>
                                <div class="form-group">
                                  <label>Google Map URL</label>

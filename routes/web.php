@@ -37,6 +37,7 @@ Route::any('pricing/add', 'Admin\\PricingController@add');
 Route::get('pricing/list', 'Admin\\PricingController@list');
 Route::any('pricingDetails', 'Admin\\PricingController@details');
 Route::any('pricing/edit/{id}', 'Admin\\PricingController@edit');
+Route::get('pricing/delete/{id}', 'Admin\\PricingController@delete');
 //Works
 Route::get('works', 'Admin\\WorksController@works');
 Route::post('works/add', 'Admin\\WorksController@add');
@@ -54,6 +55,14 @@ Route::get('modules/list', 'Admin\\ModuleController@list');
 Route::get('modules/delete/{id}', 'Admin\\ModuleController@delete');
 Route::any('modules/edit/{id}', 'Admin\\ModuleController@edit');
 Route::any('moduleOptions', 'Admin\\ModuleController@options');
+//Modules
+Route::any('testimonials/add', 'Admin\\TestimonialController@add');
+Route::get('testimonials/list', 'Admin\\TestimonialController@list');
+Route::get('testimonials/delete/{id}', 'Admin\\TestimonialController@delete');
+Route::any('testimonial/edit/{id}', 'Admin\\TestimonialController@edit');
 });
 
 });
+
+//Frontend
+Route::get('/', 'Frontend\\HomeController@index');

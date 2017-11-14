@@ -80,6 +80,18 @@
                         <li><a href="{{URL::to('admin/modules/list')}}">List Modules</a></li>
                      </ul>
                   </li> 
+                  <li class="treeview">
+                     <a href="#">
+                     <i class="fa fa-commenting" aria-hidden="true"></i><span>Testimonials</span>
+                     <span class="pull-right-container">
+                     <i class="fa fa-angle-left pull-right"></i>
+                     </span>
+                     </a>
+                     <ul class="treeview-menu">
+                        <li><a href="{{URL::to('admin/testimonials/add')}}">Add Testimonials</a></li>
+                        <li><a href="{{URL::to('admin/testimonials/list')}}">List Testimonials</a></li>
+                     </ul>
+                  </li> 
                </ul>
             </div>
             <!-- /.sidebar -->

@@ -81,7 +81,14 @@ class PricingController extends Controller
         $__dataAssign['Data']=Pricing::get();
         return view($this->__Directory.'/'.__FUNCTION__, $__dataAssign);
     }
+    public function delete($id, Request $request){
+        Pricing::destroy($id);
+        Offering::where('package_id',$id)->delete();
+        Codes::where('package_id',$id)->delete();
 
+        $request->session()->flash('success', 'Data Deleted');
+        return back();
+    }
     public function details(Request $request)
     {
 
