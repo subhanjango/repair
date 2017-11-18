@@ -98,11 +98,10 @@ $('#dataTable').DataTable();
           $.post("{{url('admin/moduleOptions')}}", { id: id, _token: "{!! csrf_token() !!}" })
             .done(function( data ) {
             $('.modal-title').text('Module Options');
-            console.log('code',data[0].option[0].parent_id);
             $('.modal-body').append('<h1>Module Options</h1>');
-            $.each(data[0].option , function (index, value) {
-                if($.isEmptyObject(data[0].option[index].parent_id)){
-                $('.modal-body').append('<h3>'+value.title+'</h3>');
+            $.each(data , function (index, value) {
+                if($.isEmptyObject(data[index].parent_id)){
+                $('.modal-body').append('<ol><h3>'+value.title+'</h3></ol>');
                 }else{
                  $('.modal-body').append('<li>'+value.title+'</li>');  
                 }

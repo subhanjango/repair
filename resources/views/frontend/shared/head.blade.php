@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="{{asset('frontend/css/main.css')}}" id="color-switcher-link">
 <link rel="stylesheet" href="{{asset('frontend/css/animations.css')}}">
 <link rel="stylesheet" href="{{asset('frontend/css/fonts.css')}}">
+<link rel="stylesheet" href="{{asset('stylesheets/bootstrap_form.css')}}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
 <script src="{{asset('frontend/js/vendor/modernizr-2.6.2.min.js')}}"></script>
 
 <!--[if lt IE 9]>

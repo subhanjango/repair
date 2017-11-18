@@ -19,12 +19,15 @@ class Controller extends BaseController
         $iPad = stripos($_SERVER['HTTP_USER_AGENT'], "iPad");
         $Android = stripos($_SERVER['HTTP_USER_AGENT'], "Android");
         $webOS = stripos($_SERVER['HTTP_USER_AGENT'], "webOS");
+        $macOS = stripos($_SERVER['HTTP_USER_AGENT'], "Macintosh");
 
         if ($iPod || $iPhone || $iPad) {
             return asset('frontend/logo/ios.png');
         }  else if ($Android) {
             return asset('frontend/logo/non-ios.png');
         } else if ($webOS) {
+            return asset('frontend/logo/ios.png');
+        }elseif($macOS){
             return asset('frontend/logo/ios.png');
         }else{
             return asset('frontend/logo/non-ios.png');

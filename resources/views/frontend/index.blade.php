@@ -36,7 +36,7 @@
 <br> You can call a Professional?</h2>
 </div>
 <div class="intro-layer to_animate" data-animation="fadeInRight">
-<a href="#" class="theme_button inverse topmargin_30">Request a quote</a>
+<a href="{{url('/book-a-service')}}" class="theme_button inverse topmargin_30">Book A Service</a>
 </div>
 </div>
 <!-- eof .slide_description -->
@@ -62,7 +62,7 @@
 <br> You can call a Professional?</h2>
 </div>
 <div class="intro-layer to_animate" data-animation="fadeInRight">
-<a href="#" class="theme_button inverse topmargin_30">Request a quote</a>
+<a href="{{url('/book-a-service')}}" class="theme_button inverse topmargin_30">Book A Service</a>
 </div>
 </div>
 <!-- eof .slide_description -->
@@ -88,7 +88,7 @@
 <br> You can call a Professional?</h2>
 </div>
 <div class="intro-layer to_animate" data-animation="fadeInRight">
-<a href="#" class="theme_button inverse topmargin_30">Request a quote</a>
+<a href="{{url('/book-a-service')}}" class="theme_button inverse topmargin_30">Book A Service</a>
 </div>
 </div>
 <!-- eof .slide_description -->
@@ -179,7 +179,7 @@ Curious to know more about us?
 </b></h1>
 <hr class="divider_2_30 main_bg_color">
 
-<a href="about.html" class="theme_button topmargin_30 bottommargin_40">Click Right Here</a>
+<a href="{{url('/about')}}" class="theme_button topmargin_30 bottommargin_40">Click Right Here</a>
 </div>
 <div class="col-lg-6 col-lg-push-1 col-md-7 to_animate" data-animation="rotateLeft">
 <div id="container1" class="twentytwenty-container twentytwenty-about">
@@ -472,7 +472,7 @@ Data storage devices such as internal and external hard drives and disk arrays. 
 </ul>
 </li>
 <li class="call-to-action">
-<a href="#" class="theme_button inverse">Order now</a>
+<a href="#" onClick="placeOrder({{$Pricing->id}})" class="theme_button inverse">Order now</a>
 </li>
 </ul>
 </div>
@@ -482,28 +482,7 @@ Data storage devices such as internal and external hard drives and disk arrays. 
 </section>
 
 
-<section id="subscribe" class="section_subscribe cs parallax section_padding_50 table_section table_section_md">
-<div class="container">
-<div class="row">
-<div class="col-md-6 text-center text-md-left to_animate" data-animation="fadeInLeftMedium">
-<h2 class="margin_0 section_header small">Subscribe Our Newsletter</h2>
-</div>
-<div class="col-md-6 text-center text-md-right to_animate" data-animation="fadeInRightMedium">
-<div class="widget widget_mailchimp">
-<form class="signup" action="http://webdesign-finder.com/html/repairme/" method="get">
-<div>
-<div class="form-group">
-<input class="mailchimp_email form-control" name="email" type="email" placeholder="Enter Your Email Address">
-</div>
-<div class="response"></div>
-</div>
-<button type="submit" class="theme_button inverse">Subscribe</button>
-</form>
-</div>
-</div>
-</div>
-</div>
-</section>
+
 
 @include('frontend.shared.footer')
 

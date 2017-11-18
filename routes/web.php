@@ -23,7 +23,7 @@ Route::get('logout',function(){
     return view('auth.login');
 });
 //Admin Dashboard
-Route::get('home', 'Admin\\HomeController@index');
+Route::get('home', 'Admin\\SettingController@setting');
 //Setting
 Route::get('gsetting', 'Admin\\SettingController@setting');
 Route::post('setting/update', 'Admin\\SettingController@update');
@@ -66,3 +66,15 @@ Route::any('testimonial/edit/{id}', 'Admin\\TestimonialController@edit');
 
 //Frontend
 Route::get('/', 'Frontend\\HomeController@index');
+Route::post('/packageOrder', 'Frontend\\HomeController@packageOrder');
+Route::post('/orderSend', 'Frontend\\HomeController@orderSend');
+Route::post('/verifyPromo', 'Frontend\\HomeController@verifyPromo');
+Route::get('/about', 'Frontend\\HomeController@about');
+Route::get('/service/{slug}', 'Frontend\\HomeController@service');
+Route::get('/blog/{slug}', 'Frontend\\HomeController@blog');
+Route::get('/how-it-works', 'Frontend\\HomeController@how_it_works');
+Route::get('/book-a-service', 'Frontend\\HomeController@book');
+Route::get('/{slug}', 'Frontend\\HomeController@start_book');
+Route::post('/moduleDetail', 'Frontend\\HomeController@moduleDetail');
+Route::post('/order', 'Frontend\\HomeController@order');
+Route::get('/final/thankyou', 'Frontend\\HomeController@thankyou');

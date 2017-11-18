@@ -8,7 +8,7 @@ class Module extends Model
 {
     //
      protected $fillable = [
-        'service_id', 'module_title' , 'module_description' , 'select_type' , 'sort_id'
+        'id','service_id', 'module_title' , 'module_description' , 'select_type' , 'sort_id'
     ]; 
 
     public function option(){

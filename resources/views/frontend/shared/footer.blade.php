@@ -1,3 +1,45 @@
+<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Place Your Order</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+        <div class="form-group">
+            <label for="message-text" class="col-form-label">Package</label>
+            <input type="text" readonly class="form-control" id="message-package">
+          </div>
+        <div class="form-group">
+            <label for="message-text" class="col-form-label">Price</label>
+            <input type="text" readonly class="form-control" id="package-price">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Recipient Email:</label>
+            <input type="email" class="form-control" id="recipient-name" required>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea required class="form-control" id="message-text"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Promo Code</label>
+            <input required type="text"  class="form-control" id="promo-code">
+            <input required type="hidden" readonly class="form-control" id="package">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" onClick="orderSend()" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer class="page_footer ds section_padding_top_65 section_padding_bottom_15 columns_margin_bottom_30">
 <div class="container">
 <div class="row">
@@ -14,10 +56,13 @@ We fix all electronic devices such as phones, tablets, PCs and even your gaming 
 <div class="row grey columns_margin_0 columns_padding_5 darklinks">
 <div class="col-xs-6">
 <ul class="list2">
+@if(\Request::path() != 'book-a-service')
 @foreach($Service as $Service)
 <li>
-<a href="service-single.html">{{$Service->service_name}}</a>
+@php $ServiceName=str_replace(' ','-',$Service->service_name) @endphp
+<a href="{{url('/service/'.$ServiceName)}}">{{$ServiceName}}</a>
 @endforeach
+@endif
 </li>
 </ul>
 </div>
@@ -94,7 +139,8 @@ Google+
 @foreach($Blog as $Blog)
 <li>
 <div class="categories-links small-text">
-<a href="#">{{$Blog->blog_name}}</a>
+@php $blog=str_replace(' ','-',$Blog->blog_name) @endphp
+<a href="{{url('/blog/'.$blog)}}">{{$Blog->blog_name}}</a>
 </div>
 </li>
 @endforeach
@@ -117,3 +163,24 @@ Google+
 </div>
 </div>
 </section>
+
+<!-- Modal -->
+<div id="moduleDetail" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      
+      </div>
+      <div class="modal-body">
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

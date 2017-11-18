@@ -19,4 +19,6 @@ class Pricing extends Model
     {
         return $this->hasMany('App\AdminModels\Offering','package_id','id');
     }
+
+    
 }

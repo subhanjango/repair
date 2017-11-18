@@ -3724,8 +3724,7 @@ h4.small-heading {
 .ds textarea,
 .ds select,
 .ds .form-control {
-	color: #ffffff;
-	background-color: #4e4e4e;
+	color:black;
 }
 
 .ds .select-group {
@@ -4244,7 +4243,7 @@ h4.small-heading {
 }
 
 .header_darkgrey.black {
-	background-color: #000;
+	background-color: #3c3c3c;
 }
 
 @media (max-width: 992px) {
@@ -4262,9 +4261,7 @@ a.logo {
 	padding: 5px 0;
 }
 
-a.logo img {
-	max-width: 100px;
-}
+
 
 a.logo img + .logo_text {
 	padding: 0 15px;
@@ -4356,9 +4353,7 @@ a.logo.vertical_logo img {
 	z-index: 1002;
 }
 
-.page_header.affix {
-	position: fixed;
-}
+
 
 .page_header.affix-bottom {
 	top: 0 !important;
