@@ -84,4 +84,48 @@ function isEmail(email) {
   var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   return regex.test(email);
 }
+
+  function glowMe(id){
+
+if(localStorage.getItem(id) > parseInt($('#amount').text()) ){
+
+now= localStorage.getItem(id)-parseInt($('#amount').text());
+}else{
+  now= parseInt($('#amount').text())-localStorage.getItem(id);  
+}
+
+$('#amount').text(now);
+selected=$('#cost'+id).val();
+amount=parseInt(selected);
+$('#amount').text(amount);
+localStorage.setItem(id, selected);
+
+      @php if(isset($Module->select_type) && $Module->select_type == 'single'){ @endphp
+         
+        if("lastDiv" in localStorage){
+           $('div#'+ localStorage.getItem("lastDiv")).css('border','' ,'box-shadow' , ''); 
+        }
+            localStorage.setItem("lastDiv", id);
+      @php } @endphp
+           $('div#'+id).css('border',' 5px solid #07c');
+
+      $.post("{{url('/childModule')}}", { id: id, _token: "{!! csrf_token() !!}" })
+            .done(function( data ) {
+              if(!$.isEmptyObject(data)){
+                  $('html, body').animate({
+        scrollTop: $(".children").offset().top
+    }, 2000);
+                  $('.children').html('');
+               $.each(data , function (index, value) {
+               $('.children').append('<div class="col-md-4 child thumbnail with_shadow bottom-color-border"><img style="width: 50%;height: 190px;" src="{{ asset("images/") }}/'+data[index].image+'" alt=""><div class="caption"><h3><a href="">'+data[index].title+'</a></h3></div></div>');
+            });
+            
+               }else{
+                   @php if(isset($This_Service->service_name)){ $module_name = str_replace(' ','-',$This_Service->service_name); @endphp
+                   window.location.href = "{{ url($module_name) }}/"+$('#this_module').val();
+                    @php } @endphp
+               }
+        });
+
+       }
 </script>

@@ -31,6 +31,7 @@
 <div class="row">
 <div class="col-sm-12 text-center">
 <h1>{{ strtoupper($Module->module_title) }}</h1>
+<input type="hidden" id="this_module" value="{{ $Module->id }}">
 
 </div>
 </div>
@@ -44,7 +45,7 @@
 <div class="isotope_container isotope row masonry-layout" data-filters=".isotope_filters">
 @foreach($ModuleOptions as $ModuleOptions)
 
-<div class="isotope-item col-lg-3">
+<div onclick="glowMe({{$ModuleOptions->id}})" id="{{$ModuleOptions->id}}" class="isotope-item col-lg-3">
 <div class="thumbnail with_shadow bottom-color-border">
 <img style="width:50%;" src="{{ asset('images/'.$ModuleOptions->image) }}" alt="">
 <div class="caption">
@@ -54,22 +55,20 @@
 </div>
 </div>
 </div>
-
+<input type="hidden" id="cost{{$ModuleOptions->id}}" value="{{$ModuleOptions->cost}}">
 @endforeach
-
-
-
-
-
-
-
-
-
 </div>
+<div class="container thumbnail"></div>
+<span class="children"></span>
 <!-- eof .isotope_container.row -->
+</div>
+<br>
+ </div>
 
-</div>
-</div>
+<div class=" d-flex align-items-center pull-left">
+<a  href="{{ url()->previous() }}"><button  style="width:100%;display: block; margin: 0 auto;" type="submit" class="theme_button"><b>Go Back</b></button></a> </div>
+<div class="d-flex align-items-center pull-right thumbnail"><h3 >Total Amount : $<span id="amount">0</span></h3></div>
+
 </div>
 </section>
 

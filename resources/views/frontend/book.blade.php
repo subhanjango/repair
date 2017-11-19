@@ -50,7 +50,7 @@
 height: 240px;" src="{{ asset('images/'.$Service->service_image) }}" alt="">
 <div class="caption">
 <h3>
-<a href="{{url('/'.$ServiceName)}}">{{ $Service->service_name }}</a>
+<a href="{{url('/'.$ServiceName.'/0')}}">{{ $Service->service_name }}</a>
 </h3>
 </div>
 </div>

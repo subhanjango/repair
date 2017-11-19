@@ -107,8 +107,7 @@ class HomeController extends Controller
 
     }
 
-    public function start_book($service){
-        
+    public function start_book($service,$id=0){
         $__dataAssign['logo'] = $this->logo();
         $__dataAssign['All_Blog'] = Blog::orderBy('id', 'DESC')->get();
         $__dataAssign['Setting'] = Setting::first();
@@ -116,19 +115,21 @@ class HomeController extends Controller
         $__dataAssign['This_Service'] = Service::where('service_name', $service)->first();
         $__dataAssign['Service'] = Service::orderBy('id', 'DESC')->get();
         $__dataAssign['Blog'] = Blog::orderBy('id', 'DESC')->limit(3)->get();
-        $__dataAssign['Module'] = Module::where('service_id', $__dataAssign['This_Service']->id)->skip(0)->take(1)->first();
-        
+        $__dataAssign['Module'] = Module::where('service_id', $__dataAssign['This_Service']->id)->where('id','>',$id)->orderBy('id','ASC')->first();
+        if(count($__dataAssign['Module']) == 0){
+        return back();    
+        }
         $__dataAssign['ModuleOptions'] = ModuleOptions::where('module_id', $__dataAssign['Module']->id)->whereNull('parent_id')->get();
 
-        if(count($__dataAssign['ModuleOptions']) == 0){
-            $__dataAssign['ModuleOptions'] = ModuleOptions::where('module_id', $__dataAssign['Module']->id)->get();
-        }
 
        // echo '<pre>';print_r($__dataAssign['Module']);die;
         return view($this->__Directory . '/' . __FUNCTION__, $__dataAssign);
 
     }
+    public function childModule(Request $request){
+        return ModuleOptions::where('parent_id',$request->id)->get();
 
+    }
     public function moduleDetail(Request $request){
         return Module::find($request->id);
     }
